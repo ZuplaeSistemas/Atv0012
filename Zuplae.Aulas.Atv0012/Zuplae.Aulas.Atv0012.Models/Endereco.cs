@@ -2,7 +2,8 @@
 
 namespace Zuplae.Aulas.Atv0012.Models
 {
-    public class Endereco
+    // classe filha ou derivada - classe Mãe ou base
+    public class Endereco : BaseModel // Herança
     {
         #region CamposPrivados
             private string logradouro;
