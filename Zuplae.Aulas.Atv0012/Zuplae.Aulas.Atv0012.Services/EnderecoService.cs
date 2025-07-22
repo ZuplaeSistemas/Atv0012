@@ -2,7 +2,7 @@
 
 namespace Zuplae.Aulas.Atv0012.Services
 {
-    public class EnderecoService
+    public class EnderecoService : IEnderecoService
     {
         private static List<Endereco> enderecos = new List<Endereco>();
         public int Cadastrar(string logradouro, string numero, string complemento, string bairro, string cidade, string estado, string cep)
@@ -20,11 +20,28 @@ namespace Zuplae.Aulas.Atv0012.Services
             int id = endereco1.GetId();
             return  id;
         }
-        public void Editar()
+        public bool Editar(int id, string logradouro, string numero, string complemento, string bairro, string cidade, string estado, string cep)
         {
+            Endereco endereco = this.ListarPorId(id);
+            if (endereco != null)
+            {
+                endereco.SetLogradouro(logradouro);
+                endereco.SetNumero(numero);
+                endereco.SetComplemento(complemento);
+                endereco.SetBairro(bairro);
+                endereco.SetCidade(cidade);
+                endereco.SetEstado(estado);
+                endereco.SetCep(cep);
+                return true;
+            }
+            else
+            {
+                return false;
+            }
         }
-        public void Listar()
+        public List<Endereco> Listar()
         {
+            return enderecos;
         }
 
         public Endereco ListarPorId(int id)
@@ -32,8 +49,19 @@ namespace Zuplae.Aulas.Atv0012.Services
             Endereco end = enderecos.Find(e => e.GetId() == id);
             return end;
         }
-        public void Deletar()
+        public bool Deletar(int id)
         {
+            Endereco endereco = this.ListarPorId(id);
+            if(endereco != null)
+            {
+                enderecos.Remove(endereco);
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+
         }
     }
 }
