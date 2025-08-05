@@ -10,7 +10,7 @@ namespace Zuplae.Aulas.Atv0012.ConsoleApp
 {
     internal class TelaEndereco
     {
-        private EnderecoService service = new EnderecoService();
+        private BaseService service = new BaseService();
 
         public void ExecutarMenu()
         {

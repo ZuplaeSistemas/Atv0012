@@ -9,53 +9,32 @@ namespace Zuplae.Aulas.Atv0012.Models
     public class Produto : BaseModel
     {
         #region CamposPrivados
-            private string nome;
-            private string codigo;
-            private decimal preco;
-            private Fornecedor fornecedor;
-        #endregion
+            private string _nome;
+            public string Nome 
+            { 
+                get { return this._nome.ToUpper(); } 
+                set { this._nome = value; } 
+            }
 
-        #region Nome
-            public void SetNome(string nome) 
+            public string Codigo { get; private set; }
+            private decimal _preco;
+            public decimal Preco 
             { 
-                this.nome = nome;
+                get { return this._preco; } 
+                set {
+                        //O Preco não pode ser negativo e nem superior a R$100.00
+                        if (value < 0 || value > 100.00m)
+                        {
+                            throw new Exception("Preço deve ser entre R$0,00 e R$100,00.");
+                        }
+                        this._preco = value;
+                    } 
             }
-            public string GetNome() 
-            { 
-                return this.nome.ToUpper();
-            }
+
+            public Fornecedor Fornecedor { get; set; }
+        
         #endregion
-        #region Codigo
-            public string GetCodigo() 
-            { 
-                return this.codigo;
-            }
-        #endregion
-        #region Preco
-            public void SetPreco(decimal preco) 
-            {
-                //O Preco não pode ser negativo e nem superior a R$100.00
-                if (preco < 0 || preco > 100.00m)
-                {
-                    throw new Exception("Preço deve ser entre R$0,00 e R$100,00.");
-                }
-                this.preco = preco;
-            }
-            public decimal GetPreco() 
-            { 
-                return this.preco;
-            }
-        #endregion
-        #region Fornecedor
-            public void SetFornecedor(Fornecedor fornecedor) 
-            { 
-                this.fornecedor = fornecedor;
-            }
-            public Fornecedor GetFornecedor() 
-            { 
-                return this.fornecedor;
-            }
-        #endregion
+       
 
         #region Construtores
             public Produto()
@@ -65,9 +44,9 @@ namespace Zuplae.Aulas.Atv0012.Models
 
             public Produto(string nome, decimal preco, Fornecedor fornecedor)
             {
-                this.SetNome(nome);
-                this.SetPreco(preco);
-                this.SetFornecedor(fornecedor);
+                this.Nome = nome;
+                this.Preco = preco;
+                this.Fornecedor = fornecedor;
 
                 this.GerarCodigo();
             }
@@ -76,12 +55,12 @@ namespace Zuplae.Aulas.Atv0012.Models
         #region Metodos
             public override string ToString()
             {
-                return $"Produto: {GetNome()}, Código: {GetCodigo()}, Preço: {GetPreco():C}, Fornecedor: {GetFornecedor()}";
+                return $"Produto: {Nome}, Código: {Codigo}, Preço: {Preco:C}, Fornecedor: {Fornecedor}";
             }
 
             private void GerarCodigo()
             {
-                this.codigo = "ZPEL" + Guid.NewGuid().ToString("N").Substring(0, 8).ToUpper();
+                Codigo = "ZPEL" + Guid.NewGuid().ToString("N").Substring(0, 8).ToUpper();
             }
 
         #endregion

@@ -7,7 +7,7 @@ using Zuplae.Aulas.Atv0012.Models;
 
 namespace Zuplae.Aulas.Atv0012.Services
 {
-    public class EnderecoService : BaseService<Endereco>
+    public class ProdutoService : BaseService<Produto>
     {
     }
 }
